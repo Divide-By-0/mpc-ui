@@ -47,7 +47,7 @@ const rows = clients.map((client, i) => {
     return createData(client["name"], client["organization"], client["hash"], client["status"]);
  });
 
-const useStyles = makeStyles({
+const useStyles = (theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -72,59 +72,71 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MPCStatus(props) {
-    const classes = useStyles(theme);
+class MPCStatus extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+
+  }
+
+  render() {
+    const classes = this.props;
     let header = (
-        <div>
-            <AppBar elevation={0} position="static">
-                <Toolbar>   {/* variant="dense"> */}
-                    {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+      <div>
+        <AppBar elevation={0} position="static">
+          <Toolbar>   {/* variant="dense"> */}
+            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton> */}
-                    <Typography variant="h6" color="inherit">
-                        {`Snarkify` }
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </div>
+            <Typography variant="h6" color="inherit">
+              {`Snarkify` }
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </div>
     );
-    
+
 
     return (
-        <ThemeProvider theme={theme}>
-            {header}
-            <Typography 
-              className={classes.title} variant="h3" component="h3">
-                ZKSNARK Trusted Setup MPC
-            </Typography>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              className={classes.grid} 
-            >
-            <Table className={classes.table} >
-                <TableBody className={classes.center} >
-                {clients.map((client, i) => {
-                    let row = makeRow(client);
-                    return (
-                        // <TableContainer component={Paper}>
+      <ThemeProvider theme={theme}>
+        {header}
+        <Typography
+          className={classes.title} variant="h3" component="h3">
+          ZKSNARK Trusted Setup MPC
+        </Typography>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.grid}
+        >
+          <Table className={classes.table} >
+            <TableBody className={classes.center} >
+              {clients.map((client, i) => {
+                let row = makeRow(client);
+                return (
+                  // <TableContainer component={Paper}>
 
-                        <TableRow className={classes.center} key={row.name} border={1} borderRadius={16}>
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="left">{row.organization}</TableCell>
-                            <TableCell align="left">{row.hash}</TableCell>
-                            <TableCell align="left">{row.status? "Complete":"Incomplete"}</TableCell>
-                        </TableRow>
-                        // </TableContainer>
-                    );}
-                )}
-                </TableBody>
-            </Table>
-            </Grid>
-        </ThemeProvider>
+                  <TableRow className={classes.center} key={row.name} border={1} borderRadius={16}>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="left">{row.organization}</TableCell>
+                    <TableCell align="left">{row.hash}</TableCell>
+                    <TableCell align="left">{row.status? "Complete":"Incomplete"}</TableCell>
+                  </TableRow>
+                  // </TableContainer>
+                );}
+              )}
+            </TableBody>
+          </Table>
+        </Grid>
+      </ThemeProvider>
     );
+  }
 }
+
+export default withStyles(useStyles)(MPCStatus);
