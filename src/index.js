@@ -8,7 +8,7 @@ import AllMPCs from './AllMPCs';
 import NewMPC from './NewMPC'; 
 import MPCStatus from './MPCStatus'; 
 import './index.css';
-import 'typeface-aleo';
+import 'typeface-rubik';
 // import './style.css';
 
 /*
@@ -23,7 +23,7 @@ ReactDOM.render(
         {/* <Route exact path="/" component={NewGame} /> */}
         <Route exact path="/" component= {AllMPCs} /> 
         <Route path="/new" component={NewMPC} />
-        <Route path="/mpc/mpcid?" component={MPCStatus} />
+        <Route path="/mpc/:mpcId?" component={MPCStatus} />
     </div>
 </Router>,
 document.getElementById('root')

@@ -19,6 +19,14 @@ import Button from '@material-ui/core/button';
 import redirect from './redirect'
 import { Redirect } from 'react-router-dom'
 
+// const theme = createMuiTheme({
+//   typography: {
+//     // Use the system font.
+//     fontFamily:
+//       'aleo',
+//   },
+// })
+
 const useStyles = makeStyles(theme => ({
   card: {
     margin: 20,
@@ -44,7 +52,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: red[500],
   },
   typography: {
-    fontFamily: 'Titillium Web',
+    fontFamily: 'Muli',
+    fontWeight: 500,
   },
 }));
 
@@ -64,9 +73,9 @@ export default function MPCCard(props) {
     }
     const goToCeremony = (event) => {
       setIsRedirecting(true);
-      setRedirectLink((props.mpcid==="new")?`/new`:`/mpc/${props.mpcid}`);
+      setRedirectLink((props.mpcId==="new")?`/new`:`/mpc/${props.mpcId}`);
 
-      console.log(props.mpcid)
+      console.log(props.mpcId)
       // redirect(setRedirectLink);
     }
     const classes = useStyles();
@@ -100,7 +109,7 @@ export default function MPCCard(props) {
       <CardActions>
         {isRedirecting? <Redirect to={redirectLink}/>:<Fragment></Fragment>}
         <Button size="small" color="primary" onClick={goToCeremony}>
-          {props.mpcid==="new"?"Create ceremony":"See Ceremony"}
+          {props.mpcId==="new"?"Create ceremony":"See Ceremony"}
         </Button>
       </CardActions>
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit>

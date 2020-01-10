@@ -1,116 +1,130 @@
-import React, { useState, Fragment } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
+import React, { Fragment } from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid';
+// import FormRow from '@material-ui/core/FormRow';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/button';
-import redirect from './redirect'
-import { Redirect } from 'react-router-dom'
+import InputBase from '@material-ui/core/InputBase';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import Card from '@material-ui/core/Card';
+import MPCCard from "./MPCCard";
+import 'typeface-rubik';
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    margin: 20,
-    marginRight: 'auto',
-    marginLeft: 'auto',
-    maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-  typography: {
-    fontFamily: 'Titillium Web',
-  },
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { fade, createMuiTheme, ThemeProvider, responsiveFontSizes, withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+
+const theme = responsiveFontSizes(createMuiTheme({
+    typography: {
+      fontFamily: [
+        'rubik',
+      ].join(','),
+    },
+    shadows: ["none"]
 }));
 
-export default function MPCCard(props) {
-    // const [expanded, setExpanded] = useState(false);
-    // const handleExpandClick = (event) => {
-    //   setExpanded(!expanded);
-    // };
-    const [isRedirecting, setIsRedirecting] = useState(false);
-    const [redirectLink, setRedirectLink] = useState("");
+function createData(name, organization, hash, status) {
+  return { name, organization, hash, status };
+}
 
-    // static contextTypes = {
-    //   router: PropTypes.object
-    // }
-    // const redirectToTarget = () => {
-    //   this.context.router.history.push(`/target`)
-    // }
-    const goToCeremony = (event) => {
-      setIsRedirecting(true);
-      setRedirectLink(`/mpc/${props.mpcid}`);
+let clients = [
+    {"name": "Brian", "clientId":"b56ege5", "organization": "Snarkify", "hash": "nth984euromnamipkuoi9uio4jiek", "status":true}, 
+    {"name": "Aayush", "clientId":"35bt4v5wc", "organization": "Snarkify 2", "hash": "89354dfkiu980iueorjh43589ty4y", "status":false}, 
+    {"name":"Add yourself", "clientId":"new", }] // todo get from db
 
-      console.log(props.mpcid)
-      // redirect(setRedirectLink);
-    }
-    const classes = useStyles();
+const makeRow = (client) => {
+    return createData(client["name"], client["organization"], client["hash"], client["status"]);
+};
+
+const rows = clients.map((client, i) => { 
+    return createData(client["name"], client["organization"], client["hash"], client["status"]);
+ });
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  grid: {
+    marginTop: 20,
+    // maxWidth: 700,
+    justifyContent: 'center',
+  },
+  table: {
+    marginTop: 5,
+    marginLeft: 100,
+    marginRight: 100,
+    justifyContent: 'center',
+  },
+  center: {
+    justifyContent: 'center',
+  },
+});
+
+export default function MPCStatus(props) {
+    const classes = useStyles(theme);
+    let header = (
+        <div>
+            <AppBar elevation={0} position="static">
+                <Toolbar>   {/* variant="dense"> */}
+                    {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton> */}
+                    <Typography variant="h6" color="inherit">
+                        {`Snarkify` }
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
     
+
     return (
-      <Card className={classes.card}>
-      <CardHeader
-          avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-              {(props.title && props.title.length>0)?props.title[0]:"$"}
-          </Avatar>
-          }
-          action={
-          <IconButton aria-label="settings">
-              <MoreVertIcon />
-          </IconButton>
-          }
-          title={props.title?props.title:"Unknown Ceremony"}
-          subheader={props.date?props.date:"No set date"}
-      />
-      <CardMedia
-          className={classes.media}
-          image="https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg"
-          title="MPC"
-      />
-      <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.description?props.description:"A standard MPC ceremony."}
-          </Typography>
-      </CardContent>
-      <CardActions>
-        {isRedirecting? <Redirect to={redirectLink}/>:<Fragment></Fragment>}
-        <Button size="small" color="primary" onClick={goToCeremony}>
-          See Ceremony
-        </Button>
-      </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-          <Typography paragraph>More Info:</Typography>
-          <Typography paragraph>
-              {props.moreInfo? props.moreInfo : "A standard MPC."}
-          </Typography>
-          </CardContent>
-      </Collapse> */}
-      </Card>
+        <ThemeProvider theme={theme}>
+            {header}
+            <Typography 
+              className={classes.title} variant="h3" component="h3">
+                ZKSNARK Trusted Setup MPC
+            </Typography>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              className={classes.grid} 
+            >
+            <Table className={classes.table} >
+                <TableBody className={classes.center} >
+                {clients.map((client, i) => {
+                    let row = makeRow(client);
+                    return (
+                        // <TableContainer component={Paper}>
+
+                        <TableRow className={classes.center} key={row.name} border={1} borderRadius={16}>
+                            <TableCell component="th" scope="row">
+                                {row.name}
+                            </TableCell>
+                            <TableCell align="left">{row.organization}</TableCell>
+                            <TableCell align="left">{row.hash}</TableCell>
+                            <TableCell align="left">{row.status? "Complete":"Incomplete"}</TableCell>
+                        </TableRow>
+                        // </TableContainer>
+                    );}
+                )}
+                </TableBody>
+            </Table>
+            </Grid>
+        </ThemeProvider>
     );
 }
