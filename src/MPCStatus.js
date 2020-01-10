@@ -11,6 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Card from '@material-ui/core/Card';
 import MPCCard from "./MPCCard";
 import 'typeface-rubik';
+import PropTypes from 'prop-types';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -47,7 +48,7 @@ const rows = clients.map((client, i) => {
     return createData(client["name"], client["organization"], client["hash"], client["status"]);
  });
 
-const useStyles = (theme) => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -82,7 +83,7 @@ class MPCStatus extends React.Component {
   }
 
   render() {
-    const classes = this.props;
+    const {classes} = this.props;
     let header = (
       <div>
         <AppBar elevation={0} position="static">
@@ -139,4 +140,8 @@ class MPCStatus extends React.Component {
   }
 }
 
-export default withStyles(useStyles)(MPCStatus);
+MPCStatus.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(MPCStatus);
