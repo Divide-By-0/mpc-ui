@@ -76,10 +76,23 @@ const styles = (theme) => ({
 class MPCStatus extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      participants: []
+    };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.updateStateFromServer();
+    setInterval(this.updateStateFromServer.bind(this), 2000);
+  }
 
+  async updateStateFromServer() {
+    const response = await fetch('http://10.0.0.86:8081/api/state');
+    const responseBody = await response.json();
+    this.setState({
+      participants: responseBody.participants
+    });
   }
 
   render() {
@@ -116,18 +129,21 @@ class MPCStatus extends React.Component {
         >
           <Table className={classes.table} >
             <TableBody className={classes.center} >
-              {clients.map((client, i) => {
-                let row = makeRow(client);
+              <TableRow className={classes.center} border={1} borderRadius={16}>
+
+                <TableCell align="center">{"Online"}</TableCell>
+                <TableCell align="left">{"ID"}</TableCell>
+                <TableCell align="left">{"Status"}</TableCell>
+              </TableRow>
+              {this.state.participants.map((participant) => {
                 return (
                   // <TableContainer component={Paper}>
 
-                  <TableRow className={classes.center} key={row.name} border={1} borderRadius={16}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="left">{row.organization}</TableCell>
-                    <TableCell align="left">{row.hash}</TableCell>
-                    <TableCell align="left">{row.status? "Complete":"Incomplete"}</TableCell>
+                  <TableRow className={classes.center} key={participant.address} border={1} borderRadius={16}>
+
+                    <TableCell align="center">{participant.online ? "🔵" : "🔴"}</TableCell>
+                    <TableCell align="left">{participant.address}</TableCell>
+                    <TableCell align="left">{participant.state}</TableCell>
                   </TableRow>
                   // </TableContainer>
                 );}
