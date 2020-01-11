@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState, Fragment} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -10,7 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import {red} from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     margin: 20,
     marginRight: 'auto',
     marginLeft: 'auto',
-    maxWidth: 345,
+    maxWidth: 800,
   },
   media: {
     height: 0,
@@ -51,58 +51,53 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MPCCard(props) {
-    // const [expanded, setExpanded] = useState(false);
-    // const handleExpandClick = (event) => {
-    //   setExpanded(!expanded);
-    // };
-    const [isRedirecting, setIsRedirecting] = useState(false);
-    const [redirectLink, setRedirectLink] = useState("");
+  // const [expanded, setExpanded] = useState(false);
+  // const handleExpandClick = (event) => {
+  //   setExpanded(!expanded);
+  // };
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [redirectLink, setRedirectLink] = useState("");
 
-    // static contextTypes = {
-    //   router: PropTypes.object
-    // }
-    const redirectToTarget = () => {
-      this.context.router.history.push(`/target`)
-    }
-    const goToCeremony = (event) => {
-      setIsRedirecting(true);
-      setRedirectLink((props.mpcId==="new")?`/new`:`/mpc/${props.mpcId}`);
+  // static contextTypes = {
+  //   router: PropTypes.object
+  // }
+  const redirectToTarget = () => {
+    this.context.router.history.push(`/target`)
+  }
+  const goToCeremony = (event) => {
+    setIsRedirecting(true);
+    setRedirectLink((props.mpcId === "new") ? `/new` : `/mpc/${props.mpcId}`);
 
-      console.log(props.mpcId)
-      // redirect(setRedirectLink);
-    }
-    const classes = useStyles();
-    
-    return (
-      <Card className={classes.card}>
+    console.log(props.mpcId)
+    // redirect(setRedirectLink);
+  }
+  const classes = useStyles();
+
+  return (
+    <Card className={classes.card}>
       <CardHeader
-          avatar={
+        avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-              {(props.title && props.title.length>0)?props.title[0]:"$"}
+            {(props.title && props.title.length > 0) ? props.title[0] : "$"}
           </Avatar>
-          }
-          action={
+        }
+        action={
           <IconButton aria-label="settings">
-              <MoreVertIcon />
+            <MoreVertIcon/>
           </IconButton>
-          }
-          title={props.title?props.title:"Unknown Ceremony"}
-          subheader={props.date?props.date:"No set date"}
-      />
-      <CardMedia
-          className={classes.media}
-          image={props.image?props.image:"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg"}
-          title="MPC"
+        }
+        title={props.title ? props.title : "Unknown Ceremony"}
+        subheader={props.date ? props.date : "No set date"}
       />
       <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.description?props.description:"A standard MPC ceremony."}
-          </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {props.description ? props.description : "A standard MPC ceremony."}
+        </Typography>
       </CardContent>
       <CardActions>
-        {isRedirecting? <Redirect to={redirectLink}/>:<Fragment></Fragment>}
+        {isRedirecting ? <Redirect to={redirectLink}/> : <Fragment></Fragment>}
         <Button size="small" color="primary" onClick={goToCeremony}>
-          {props.mpcId==="new"?"Create ceremony":"See Ceremony"}
+          {props.mpcId === "new" ? "Create ceremony" : "See Ceremony"}
         </Button>
       </CardActions>
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -113,6 +108,6 @@ export default function MPCCard(props) {
           </Typography>
           </CardContent>
       </Collapse> */}
-      </Card>
-    );
+    </Card>
+  );
 }
