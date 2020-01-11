@@ -13,6 +13,7 @@ import 'typeface-rubik';
 import { fade, createMuiTheme, ThemeProvider, responsiveFontSizes, withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import colors, {theme} from './colors';
 import firestore from "./firestore";
+import './style.css'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -61,11 +62,36 @@ export default function AllMPCs() {
     return (
         <div
           style={{
-            backgroundColor: 'black',
+            backgroundColor: '#121212',
             paddingBottom: '50px'
           }}
         >
-          {Header}
+          <div
+            style={{
+              height: '600px',
+              backgroundColor: '#444444',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              verticalAlign: 'center',
+              flexDirection: 'column'
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: 'Monaco',
+                color: '#eeeeee',
+                fontSize: '60px'
+              }}
+            >
+              snarkify
+            </h2>
+            <p>
+              An open tool for <a href={"https://en.wikipedia.org/wiki/Secure_multi-party_computation"}>multi-party computation</a>.
+            </p>
+          </div>
+          <div>
             <Typography 
               className={classes.title} variant="h3" component="h3">
                 All MPC Ceremonies
@@ -82,6 +108,7 @@ export default function AllMPCs() {
                     image={ceremony.image}>
                 </MPCCard> 
             ))}
+          </div>
         </div>
     );
 }
