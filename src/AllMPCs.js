@@ -14,6 +14,8 @@ import { fade, createMuiTheme, ThemeProvider, responsiveFontSizes, withStyles, T
 import colors, {theme} from './colors';
 import firestore from "./firestore";
 import './style.css'
+import redirect from "./redirect";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,7 +26,8 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: colors.bgBlack,
     },
     title: {
-      padding: '20px',
+      paddingTop: '40px',
+      paddingBottom: '40px',
       flexGrow: 1,
       textAlign: 'center',
       color: colors.textWhite,
@@ -94,7 +97,7 @@ export default function AllMPCs() {
           <div>
             <Typography 
               className={classes.title} variant="h3" component="h3">
-                All MPC Ceremonies
+                Ongoing MPC Ceremonies
             </Typography>
             {ceremonies.map((ceremony, i) => (
                 <MPCCard 

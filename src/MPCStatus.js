@@ -21,6 +21,8 @@ import Paper from '@material-ui/core/Paper';
 import { fade, createMuiTheme, ThemeProvider, responsiveFontSizes, withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import colors, {theme} from './colors';
 import firestore from './firestore';
+import redirect from "./redirect";
+import {Link} from "react-router-dom";
 
 // const theme = responsiveFontSizes(createMuiTheme({
 //     typography: {
@@ -108,7 +110,27 @@ class MPCStatus extends React.Component {
 
     return (
       <ThemeProvider theme={theme}>
-        {Header}
+        <div
+          style={{
+            display: 'flex',
+            height: '60px',
+            backgroundColor: '#121212',
+            padding: '5px',
+            paddingLeft: '15px'
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: 'Monaco',
+              color: '#eeeeee',
+              fontSize: '20px'
+            }}
+          >
+            <Link to={"/"} style={{ textDecoration: 'none', color: colors.textWhite }} onClick={(e) => redirect("/")} color="inherit">
+              snarkify
+            </Link>
+          </h2>
+        </div>
         <Typography
           className={classes.title} variant="h3" component="h3">
           ZKSNARK Trusted Setup MPC

@@ -81,11 +81,6 @@ export default function MPCCard(props) {
             {(props.title && props.title.length > 0) ? props.title[0] : "$"}
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon/>
-          </IconButton>
-        }
         title={props.title ? props.title : "Unknown Ceremony"}
         subheader={props.date ? props.date : "No set date"}
       />
