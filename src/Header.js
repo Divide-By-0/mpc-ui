@@ -12,7 +12,7 @@ let Header = (
     <ThemeProvider theme={theme}>
       <AppBar elevation={0} position="static">
         <Toolbar>
-            <Link style={{ textDecoration: 'none', color: colors.textWhite }} onClick={(e) => redirect("/")} color="inherit">
+            <Link to={"/"} style={{ textDecoration: 'none', color: colors.textWhite }} onClick={(e) => redirect("/")} color="inherit">
                 <Typography variant="h6" color="inherit">
                     {`Snarkify`}
                 </Typography>

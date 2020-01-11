@@ -18,7 +18,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/button';
 import redirect from './redirect'
 import { Redirect } from 'react-router-dom'
-import { theme } from './colors';
+import colors, { theme } from './colors';
 
 const useStyles = makeStyles(theme => ({
   card: {

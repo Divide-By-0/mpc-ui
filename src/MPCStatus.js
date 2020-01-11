@@ -19,7 +19,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { fade, createMuiTheme, ThemeProvider, responsiveFontSizes, withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import {theme} from './colors';
+import colors, {theme} from './colors';
+import firestore from './firestore';
 
 // const theme = responsiveFontSizes(createMuiTheme({
 //     typography: {
@@ -54,6 +55,7 @@ const styles = (theme) => ({
   title: {
     flexGrow: 1,
     marginTop: 20,
+    color:colors.textWhite,
     textAlign: 'center',
   },
   grid: {
@@ -70,6 +72,9 @@ const styles = (theme) => ({
   center: {
     justifyContent: 'center',
   },
+  white: {
+    color:colors.textWhite,
+  }
 });
 
 class MPCStatus extends React.Component {
@@ -77,7 +82,8 @@ class MPCStatus extends React.Component {
     super(props);
 
     this.state = {
-      participants: []
+      participants: [],
+      id: this.props.match.params.mpcId
     };
   }
 
@@ -87,7 +93,10 @@ class MPCStatus extends React.Component {
   }
 
   async updateStateFromServer() {
-    const response = await fetch('http://10.0.0.86:8081/api/state');
+    const snapshot = await firestore.collection('ceremony-info').doc((this.state.id ? this.state.id : "brian")).get()
+    const ip = snapshot.data().ip;
+    console.log(snapshot, snapshot.data(), this.state.id, ip)
+    const response = await fetch(`${ip ? ip : "http://172.17.118.241"}:8081/api/state`);
     const responseBody = await response.json();
     this.setState({
       participants: responseBody.participants
@@ -115,9 +124,9 @@ class MPCStatus extends React.Component {
             <TableBody className={classes.center} >
               <TableRow className={classes.center} border={1} borderRadius={16}>
 
-                <TableCell align="center">{"Online"}</TableCell>
-                <TableCell align="left">{"ID"}</TableCell>
-                <TableCell align="left">{"Status"}</TableCell>
+                <TableCell className={classes.white} align="center">{"Online"}</TableCell>
+                <TableCell className={classes.white} align="left">{"ID"}</TableCell>
+                <TableCell className={classes.white} align="left">{"Status"}</TableCell>
               </TableRow>
               {this.state.participants.map((participant) => {
                 return (
@@ -126,8 +135,8 @@ class MPCStatus extends React.Component {
                   <TableRow className={classes.center} key={participant.address} border={1} borderRadius={16}>
 
                     <TableCell align="center">{participant.online ? "🔵" : "🔴"}</TableCell>
-                    <TableCell align="left">{participant.address}</TableCell>
-                    <TableCell align="left">{participant.state}</TableCell>
+                    <TableCell className={classes.white} align="left">{participant.address}</TableCell>
+                    <TableCell className={classes.white} align="left">{participant.state}</TableCell>
                   </TableRow>
                   // </TableContainer>
                 );}
