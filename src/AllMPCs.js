@@ -16,15 +16,17 @@ import colors, {theme} from './colors';
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
+      backgroundColor: colors.bgBlack,
     },
     card: {
       backgroundColor: colors.bgBlack,
     },
     title: {
+      padding: '20px',
       flexGrow: 1,
-      marginTop: 20,
       textAlign: 'center',
-      color:colors.textWhite,
+      color: colors.textWhite,
+      fontFamily: 'monospace'
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -36,12 +38,21 @@ export default function AllMPCs() {
     const classes = useStyles();
     let ceremonies = [
         {"title": "Brian's Game", "mpcId":"12312125", "description": "A zk-snark game.", "creator": "jsd9843ksdhf901kl94k0askl0"}, 
-        {"title": "Aayush's Snark", "image":"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg", "mpcId":"3665tgr34", "description": "A zk-snark game.", "creator": "jsd9843ksdh2342494k0askl0"}, 
-        {"title":"Create your own ceremony", "image": "https://cdn0.iconfinder.com/data/icons/coding-and-programming-1/32/add_new_plus_addition_function_circle_shape-512.png", "mpcId":"new", }] // todo get from db
+        {"title": "Aayush's Snark", "image":"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg", "mpcId":"3665tgr34", "description": "A zk-snark game.", "creator": "jsd9843ksdh2342494k0askl0"},
+      {"title": "Aayush's Snark", "image":"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg", "mpcId":"3665tgr34", "description": "A zk-snark game.", "creator": "jsd9843ksdh2342494k0askl0"},
+      {"title": "Aayush's Snark", "image":"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg", "mpcId":"3665tgr34", "description": "A zk-snark game.", "creator": "jsd9843ksdh2342494k0askl0"},
+      {"title": "Aayush's Snark", "image":"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg", "mpcId":"3665tgr34", "description": "A zk-snark game.", "creator": "jsd9843ksdh2342494k0askl0"},
+      {"title": "Aayush's Snark", "image":"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg", "mpcId":"3665tgr34", "description": "A zk-snark game.", "creator": "jsd9843ksdh2342494k0askl0"},
+        ] // todo get from db
 
     return (
-        <ThemeProvider theme={theme}>
-            {Header}
+        <div
+          style={{
+            backgroundColor: 'black',
+            paddingBottom: '50px'
+          }}
+        >
+          {Header}
             <Typography 
               className={classes.title} variant="h3" component="h3">
                 All MPC Ceremonies
@@ -57,7 +68,7 @@ export default function AllMPCs() {
                     image={ceremony.image}>
                 </MPCCard> 
             ))}
-        </ThemeProvider>
+        </div>
     );
 }
 
