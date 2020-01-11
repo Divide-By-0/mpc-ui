@@ -8,25 +8,23 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Card from '@material-ui/core/Card';
 import MPCCard from "./MPCCard";
+import Header from './Header';
 import 'typeface-rubik';
 import { fade, createMuiTheme, ThemeProvider, responsiveFontSizes, withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-
-const theme = responsiveFontSizes(createMuiTheme({
-    typography: {
-      fontFamily: [
-        'rubik',
-      ].join(','),
-    },
-}));
+import colors, {theme} from './colors';
 
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
     },
+    card: {
+      backgroundColor: colors.bgBlack,
+    },
     title: {
       flexGrow: 1,
       marginTop: 20,
       textAlign: 'center',
+      color:colors.textWhite,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -36,23 +34,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function AllMPCs() {
     const classes = useStyles();
-    let header = (
-        <div>
-            <AppBar elevation={0} position="static">
-                <Toolbar>   {/* variant="dense"> */}
-                    {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton> */}
-                    <Typography variant="h6" color="inherit">
-                        Snarkify
-                    </Typography>
-                    {/* <Typography align="right" variant="h6" color="inherit">
-                        Log In
-                    </Typography> */}
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
     let ceremonies = [
         {"title": "Brian's Game", "mpcId":"12312125", "description": "A zk-snark game.", "creator": "jsd9843ksdhf901kl94k0askl0"}, 
         {"title": "Aayush's Snark", "image":"https://cryptonomist.ch/wp-content/uploads/2018/07/dreamstime_s_102981408-min.jpg", "mpcId":"3665tgr34", "description": "A zk-snark game.", "creator": "jsd9843ksdh2342494k0askl0"}, 
@@ -60,7 +41,7 @@ export default function AllMPCs() {
 
     return (
         <ThemeProvider theme={theme}>
-            {header}
+            {Header}
             <Typography 
               className={classes.title} variant="h3" component="h3">
                 All MPC Ceremonies

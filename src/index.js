@@ -9,6 +9,8 @@ import NewMPC from './NewMPC';
 import MPCStatus from './MPCStatus'; 
 import './index.css';
 import 'typeface-rubik';
+import {theme} from './colors';
+
 // import './style.css';
 
 /*
@@ -19,7 +21,8 @@ document.getElementById('root')
 */
 ReactDOM.render(
 <Router>
-    <div className= {classnames('router-wrapper', {mobile: isMobile()})}>
+    <div 
+        style={{backgroundColor: 'black'}} className= {classnames('router-wrapper', {mobile: isMobile()})}>
         {/* <Route exact path="/" component={NewGame} /> */}
         <Route exact path="/" component= {AllMPCs} /> 
         <Route path="/new" component={NewMPC} />

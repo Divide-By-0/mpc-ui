@@ -1,6 +1,4 @@
 import React, { Fragment } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 // import FormRow from '@material-ui/core/FormRow';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +10,7 @@ import Card from '@material-ui/core/Card';
 import MPCCard from "./MPCCard";
 import 'typeface-rubik';
 import PropTypes from 'prop-types';
-
+import Header from './Header';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,15 +19,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { fade, createMuiTheme, ThemeProvider, responsiveFontSizes, withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import {theme} from './colors';
 
-const theme = responsiveFontSizes(createMuiTheme({
-    typography: {
-      fontFamily: [
-        'rubik',
-      ].join(','),
-    },
-    shadows: ["none"]
-}));
+// const theme = responsiveFontSizes(createMuiTheme({
+//     typography: {
+//       fontFamily: [
+//         'rubik',
+//       ].join(','),
+//     },
+//     shadows: ["none"]
+// }));
 
 function createData(name, organization, hash, status) {
   return { name, organization, hash, status };
@@ -97,25 +96,10 @@ class MPCStatus extends React.Component {
 
   render() {
     const {classes} = this.props;
-    let header = (
-      <div>
-        <AppBar elevation={0} position="static">
-          <Toolbar>   {/* variant="dense"> */}
-            {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton> */}
-            <Typography variant="h6" color="inherit">
-              {`Snarkify` }
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-
 
     return (
       <ThemeProvider theme={theme}>
-        {header}
+        {Header}
         <Typography
           className={classes.title} variant="h3" component="h3">
           ZKSNARK Trusted Setup MPC

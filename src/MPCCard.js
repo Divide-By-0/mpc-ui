@@ -18,14 +18,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/button';
 import redirect from './redirect'
 import { Redirect } from 'react-router-dom'
-
-// const theme = createMuiTheme({
-//   typography: {
-//     // Use the system font.
-//     fontFamily:
-//       'aleo',
-//   },
-// })
+import { theme } from './colors';
 
 const useStyles = makeStyles(theme => ({
   card: {
